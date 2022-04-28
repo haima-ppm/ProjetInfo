@@ -121,28 +121,31 @@ public class Barre {
     
     
 ////    Méthode qui renvoie le noeud opposé au noeud rentré
-//    public static Noeud noeudOppose () {
-//        Noeud nopp, n; 
-//        System.out.println("Entrez l'identificateur la barre");
-//        int id = Lire.i(); 
-//        System.out.println("Entrer les coordonnées du noeud connu");
-//        n = new Noeud()
-//        Barre b = new
-//        return nopp; 
-//    }
+   public static Noeud noeudOppose (Barre b, Noeud n) {
+       Noeud nopp;
+       if (n!=b.noeudArrivee && n!=b.noeudDepart){
+           throw new Error ("Le noeud entré ne correspond pas à la bare entrée");
+       }
+       if (n==b.noeudArrivee){
+           nopp=b.noeudDepart;
+       }
+       else nopp=b.noeudArrivee;
+       return nopp; 
+   }
     
 ////    Méthode qui calcule l'angle 
-//    public double Angle (Noeud n, double angle) {
-//        double y1, y2, x1, x2;
-////        Si le neoud entré est le noeud de départ, n récupère les coordonées du neoud d'arrivée. Et inversement. 
-//        x1 = n.getPx(); 
-//        y1 = n.getPy(); 
-//        x2 = this.noeudOppose.getPx(); 
-//        y2 = this.noeudOppose.getPy(); 
-//        
-//        
-//        angle = atan((y2-y1)/(x2-x1)); 
-//        return angle; 
-//    }
+    public double Angle (Noeud n, Barre b) {
+        double y1, y2, x1, x2;
+        Noeud nopp=noeudOppose(b,n);
+//        Si le noeud entré est le noeud de départ, n récupère les coordonées du neoud d'arrivée. Et inversement. 
+        x1 = n.getPx(); 
+        y1 = n.getPy(); 
+        x2 = nopp.getPx(); 
+        y2 = nopp.getPy(); 
+        
+        
+        double angle = atan((y2-y1)/(x2-x1)); 
+        return angle; 
+    }
     
 }

@@ -83,10 +83,9 @@ public abstract class Noeud {
         int id;
         id = -1; 
         Noeud n; 
-        int type; 
         System.out.println("Indiquer le type du noeud à créer: noeud simple: 1 , noeud appui simple: 2 ou noeud appui double: 3");
-        type = Lire.i(); 
-        if (type != 1 | type !=2 | type !=3) {
+        int type = Lire.i(); 
+        if (type != 1 && type !=2 && type !=3) {
             throw new Error ("Vous avez mal entré le type du noeud désiré");
         }
         System.out.println("Entrez les coordonnées du noeud:");
@@ -108,19 +107,13 @@ public abstract class Noeud {
         return n;
         
     }
-
-    public int nbrInconnues(Noeud n) {
-        int i=0; 
-        if (n instanceof NoeudSimple) {
-           i=0; 
-        }
-        else if (n instanceof NoeudAppuiSimple) {
-            i=1; 
-        }
-        else if (n instanceof NoeudAppuiDouble) {
-            i=2; 
-        }
-        return i; 
+public static int nbrInconnues(Noeud n){
+        if (n instanceof NoeudAppuiSimple){
+            return 1;
+        }else if (n instanceof NoeudAppuiDouble){
+            return 2;
+        }else
+            return 0;
     }
     
 

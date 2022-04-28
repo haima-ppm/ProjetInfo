@@ -17,21 +17,33 @@ public class Test {
 
        
 //      Vecteur2D => création d'un vecteur avec ses coordonées 
-        Vecteur2D v1;
-        System.out.println("Entrez les coordonnées du vecteur");
-        double x=Lire.d();
-        double y=Lire.d();  
-        v1 = new Vecteur2D(x,y);  
-        System.out.println(v1.toString());
+    //    Vecteur2D v1;
+  //      System.out.println("Entrez les coordonnées du vecteur");
+//        double x=Lire.d();
+    //    double y=Lire.d();  
+  //      v1 = new Vecteur2D(x,y);  
+//        System.out.println(v1.toString());
 //      v.getVx
 
 //      Noeud => création d'un Noeud avec ses attributs 
         Noeud n; 
-        int i; 
         n=Noeud.entreeNoeud(); 
-        System.out.println(n);
-//        i=nbrInconnues(n); 
-//        System.out.println("Ce noeud comporte"+ i +"inconnues"); 
+        System.out.println(n.toString());
+        int i=Noeud.nbrInconnues(n); 
+        System.out.println("Ce noeud comporte"+ i +"inconnues"); 
         
+        Noeud m; 
+        m=Noeud.entreeNoeud(); 
+        System.out.println(m.toString());
+        int j=Noeud.nbrInconnues(m); 
+        System.out.println("Ce noeud comporte"+ j +"inconnues"); 
+        
+        Barre b= new Barre(1,n,m,1,1,1);
+        Noeud nopp=Barre.noeudOppose(b, n);
+        System.out.println("le noeud opposé est "+nopp);
+        
+        double a=b.Angle(n, b);
+        System.out.println("l'angle est "+a);
     }
+    
 }
