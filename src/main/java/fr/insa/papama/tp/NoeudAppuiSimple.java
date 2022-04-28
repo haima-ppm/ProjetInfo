@@ -15,9 +15,9 @@ public class NoeudAppuiSimple extends NoeudAppui {
     }
     
         
-//    @Override 
-//    public String toString(){
-//        return ("NoeudAppuisSimple"+id+" = ("+px+";"+py+"), " +F); 
-//    }
+   @Override 
+   public String toString(){
+       return ("NoeudAppuisSimple"+super.getId()+" = ("+super.getPx()+";"+super.getPy()+"), " +super.getF()); 
+   }
     
 }

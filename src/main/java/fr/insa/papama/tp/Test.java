@@ -32,5 +32,6 @@ public class Test {
         System.out.println(n);
 //        i=nbrInconnues(n); 
 //        System.out.println("Ce noeud comporte"+ i +"inconnues"); 
+        
     }
 }

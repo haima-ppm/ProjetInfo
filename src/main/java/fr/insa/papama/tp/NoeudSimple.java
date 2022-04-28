@@ -16,8 +16,8 @@ public class NoeudSimple extends Noeud {
         super(px,py,F,id);
     }
     
-//    @Override 
-//    public String toString(){
-//        return ("NoeudSimple"+id+" = ("+px+";"+py+"), " +F); 
-//    }
+    @Override 
+    public String toString(){
+        return ("NoeudSimple"+super.getId()+" = ("+super.getPx()+";"+super.getPy()+"), " +super.getF()); 
+    }
 }
