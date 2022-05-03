@@ -18,9 +18,9 @@ public class Barre {
     private double tractionMax, compressionMax, cout; 
 
     //Constructeur
-    public Barre(int id, Noeud noeudDepart, Noeud noeudArrivee, double tractionMax,double compressionMax, double cout ) {
+    public Barre(int id, Noeud noeudDepart, Noeud noeudArrivee, double tractionMax,double compressionMax, double cout) {
         this.id=id; 
-        this.noeudDepart=noeudDepart; 
+        this.noeudDepart=noeudDepart;
         this.noeudArrivee=noeudArrivee; 
         this.tractionMax=tractionMax;
         this.compressionMax=compressionMax; 
@@ -61,6 +61,7 @@ public class Barre {
      */
     public void setNoeudDepart(Noeud noeudDepart) {
         this.noeudDepart = noeudDepart;
+
     }
 
     /**
@@ -75,6 +76,8 @@ public class Barre {
      */
     public void setNoeudArrivee(Noeud noeudArrivee) {
         this.noeudArrivee = noeudArrivee;
+//        Barre b=new Barre(id, noeudDepart, noeudArrivee, tractionMax,compressionMax, cout);
+//        noeudArrivee.barresArrivee.add(b);
     }
 
     /**
@@ -103,6 +106,7 @@ public class Barre {
      */
     public void setCompressionMax(double compressionMax) {
         this.compressionMax = compressionMax;
+        
     }
 
     /**

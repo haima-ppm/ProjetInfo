@@ -4,14 +4,16 @@
  */
 package fr.insa.papama.tp;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Haimavati
  */
 public class NoeudAppuiSimple extends NoeudAppui {
     
-        public NoeudAppuiSimple(double px, double py, Vecteur2D F, int id){
-        super(px,py,F,id);
+        public NoeudAppuiSimple(double px, double py, Vecteur2D F, int id,ArrayList<Barre> barresDepart, ArrayList<Barre> barresArrivee){
+        super(px,py,F,id,barresDepart,barresArrivee);
     }
     
         
