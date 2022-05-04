@@ -21,6 +21,8 @@ public class Barre {
     public Barre(int id, Noeud noeudDepart, Noeud noeudArrivee, double tractionMax,double compressionMax, double cout) {
         this.id=id; 
         this.noeudDepart=noeudDepart;
+        noeudDepart.getBarresDepart().add(this);
+        noeudArrivee.getBarresArrivee().add(this);
         this.noeudArrivee=noeudArrivee; 
         this.tractionMax=tractionMax;
         this.compressionMax=compressionMax; 
@@ -76,8 +78,6 @@ public class Barre {
      */
     public void setNoeudArrivee(Noeud noeudArrivee) {
         this.noeudArrivee = noeudArrivee;
-//        Barre b=new Barre(id, noeudDepart, noeudArrivee, tractionMax,compressionMax, cout);
-//        noeudArrivee.barresArrivee.add(b);
     }
 
     /**
@@ -138,7 +138,7 @@ public class Barre {
    }
     
 ////    Méthode qui calcule l'angle 
-    public double Angle (Noeud n, Barre b) {
+    public static double Angle (Noeud n, Barre b) {
         double y1, y2, x1, x2;
         Noeud nopp=noeudOppose(b,n);
 //        Si le noeud entré est le noeud de départ, n récupère les coordonées du neoud d'arrivée. Et inversement. 
@@ -146,8 +146,7 @@ public class Barre {
         y1 = n.getPy(); 
         x2 = nopp.getPx(); 
         y2 = nopp.getPy(); 
-        
-        
+               
         double angle = atan((y2-y1)/(x2-x1)); 
         return angle; 
     }

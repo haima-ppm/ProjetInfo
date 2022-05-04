@@ -25,7 +25,7 @@ public abstract class Noeud {
         return px; 
     }
         
-    public void setPx() {
+    public void setPx(int px) {
         this.px=px; 
     }
     
@@ -33,7 +33,7 @@ public abstract class Noeud {
         return py;
     }
     
-    public void setPy(){
+    public void setPy(int py){
         this.py=py; 
     }
 
@@ -48,24 +48,24 @@ public abstract class Noeud {
     public Vecteur2D getF() {
         return F;
     }
-
+   
     public void setF(Vecteur2D F) {
         this.F = F;
     }
-    public ArrayList<Barre> barresDepart() {
+    public ArrayList<Barre> getBarresDepart() {
         return barresDepart;
     }
 
-    public void barresDepart(ArrayList<Barre> barresDepart) {
-        this.barresDepart = barresDepart;
-    }
-    public ArrayList<Barre> barresArrivee() {
+//    public void setBarresDepart(ArrayList<Barre> barresDepart) {
+//        this.barresDepart = barresDepart;
+//    }
+    public ArrayList<Barre> getBarresArrivee() {
         return barresArrivee;
     }
 
-    public void barresArrivee(ArrayList<Barre> barresArrivee) {
-        this.barresArrivee = barresArrivee;
-    }
+//    public void setBarresArrivee(ArrayList<Barre> barresArrivee) {
+//        this.barresArrivee = barresArrivee;
+//    }
     
     //Constructeur permettant de fixer les attributs 
     public Noeud(double px, double py, Vecteur2D F, int id, ArrayList<Barre> barresDepart, ArrayList<Barre> barresArrivee){
@@ -125,7 +125,9 @@ public abstract class Noeud {
         Vecteur2D F = new Vecteur2D(vx,vy);  
         switch (type) {
             case 2:
-                n = new NoeudAppuiSimple(x,y,F,id,barresDepart,barresArrivee);
+                System.out.println("Donnez l'angle de la normale avec l'axe Ox");
+                double normale=Lire.d();                       
+                n = new NoeudAppuiSimple(x,y,F,id,barresDepart,barresArrivee,normale);
                 break;
             case 3:
                 n = new NoeudAppuiDouble(x,y,F,id,barresDepart,barresArrivee);
