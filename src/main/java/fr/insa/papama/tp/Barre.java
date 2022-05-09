@@ -22,8 +22,8 @@ public class Barre {
         this.id=id; 
         this.noeudDepart=noeudDepart;
         noeudDepart.getBarresDepart().add(this);
-        noeudArrivee.getBarresArrivee().add(this);
         this.noeudArrivee=noeudArrivee; 
+        noeudArrivee.getBarresArrivee().add(this);
         this.tractionMax=tractionMax;
         this.compressionMax=compressionMax; 
         this.cout=cout;
@@ -125,22 +125,24 @@ public class Barre {
     
     
 ////    Méthode qui renvoie le noeud opposé au noeud rentré
-   public static Noeud noeudOppose (Barre b, Noeud n) {
+   public Noeud noeudOppose (Noeud n) {
        Noeud nopp;
-       if (n!=b.noeudArrivee && n!=b.noeudDepart){
-           throw new Error ("Le noeud entré ne correspond pas à la bare entrée");
+       if (n.getId()!=this.getNoeudArrivee().getId() && n.getId()!=this.getNoeudDepart().getId()){
+           throw new Error ("Le noeud entré ne correspond pas à la barre entrée");
        }
-       if (n==b.noeudArrivee){
-           nopp=b.noeudDepart;
+       if (n.getId()==this.getNoeudArrivee().getId()){
+           nopp=this.getNoeudDepart();
        }
-       else nopp=b.noeudArrivee;
+       else 
+           nopp=this.getNoeudArrivee();
        return nopp; 
-   }
+       }
+   
     
 ////    Méthode qui calcule l'angle 
-    public static double Angle (Noeud n, Barre b) {
+    public  double Angle (Noeud n) {
         double y1, y2, x1, x2;
-        Noeud nopp=noeudOppose(b,n);
+        Noeud nopp=this.noeudOppose(n);
 //        Si le noeud entré est le noeud de départ, n récupère les coordonées du neoud d'arrivée. Et inversement. 
         x1 = n.getPx(); 
         y1 = n.getPy(); 

@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * @author Haimavati
  */
 public class NoeudAppuiSimple extends NoeudAppui {
-    double normale;
+    private double normale;
         
-    public NoeudAppuiSimple(double px, double py, Vecteur2D F, int id, ArrayList<Barre> barresDepart, ArrayList<Barre> barresArrivee,double normale){
-        super(px,py,F,id,barresDepart,barresArrivee);
+    public NoeudAppuiSimple(double px, double py, Vecteur2D F, int id,double normale){
+        super(px,py,F,id);
         this.normale=normale;        
     }
     

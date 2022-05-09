@@ -14,8 +14,8 @@ public class NoeudSimple extends Noeud {
     
     
     
-    public NoeudSimple(double px, double py, Vecteur2D F, int id,ArrayList<Barre> barresDepart, ArrayList<Barre> barresArrivee){
-        super(px,py,F,id,barresDepart,barresArrivee);
+    public NoeudSimple(double px, double py, Vecteur2D F, int id){
+        super(px,py,F,id);
     }
     
     @Override 

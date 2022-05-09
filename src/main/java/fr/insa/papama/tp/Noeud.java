@@ -16,8 +16,8 @@ public abstract class Noeud {
     private int id; 
     private double px, py; 
     private Vecteur2D F; 
-    ArrayList<Barre> barresDepart = new ArrayList();
-    ArrayList<Barre> barresArrivee = new ArrayList();
+    private ArrayList<Barre> barresDepart = new ArrayList();
+    private ArrayList<Barre> barresArrivee = new ArrayList();
     
 
     // Encapsulation 
@@ -56,41 +56,29 @@ public abstract class Noeud {
         return barresDepart;
     }
 
-//    public void setBarresDepart(ArrayList<Barre> barresDepart) {
-//        this.barresDepart = barresDepart;
-//    }
     public ArrayList<Barre> getBarresArrivee() {
         return barresArrivee;
     }
 
-//    public void setBarresArrivee(ArrayList<Barre> barresArrivee) {
-//        this.barresArrivee = barresArrivee;
-//    }
     
     //Constructeur permettant de fixer les attributs 
-    public Noeud(double px, double py, Vecteur2D F, int id, ArrayList<Barre> barresDepart, ArrayList<Barre> barresArrivee){
+    public Noeud(double px, double py, Vecteur2D F, int id){
         this.px=px; 
         this.py=py; 
         this.F=F; 
         this.id=id;
-        this.barresArrivee=barresArrivee;
-        this.barresDepart=barresDepart;
+        this.barresArrivee=new ArrayList<>();
+        this.barresDepart=new ArrayList<>();
     }
 
     //Constructeur permettant de fixer uniquement la position et la force
     public Noeud(double px, double py, Vecteur2D F){
-        this.px=px; 
-        this.py=py; 
-        this.F=F; 
-        this.id=-1; 
+        this(px,py,F,-1);
     }
     
     //Constructeur permettant de fixer uniquement la position 
     public Noeud(double px, double py){
-        this.px=px; 
-        this.py=py;
-        this.F= new Vecteur2D(0,0); 
-        this.id=-1;
+        this(px,py,new Vecteur2D(0, 0));
     }
     
     @Override
@@ -104,55 +92,47 @@ public abstract class Noeud {
         int id;
         id = -1; 
         Noeud n; 
-        ArrayList<Barre> barresDepart = new ArrayList();
-        ArrayList<Barre> barresArrivee = new ArrayList();
         System.out.println("Indiquer le type du noeud à créer: noeud simple: 1 , noeud appui simple: 2 ou noeud appui double: 3");
-//        int type = Lire.i(); 
-        int type=2;
+        int type = Lire.i(); 
         if (type != 1 && type !=2 && type !=3) {
             throw new Error ("Vous avez mal entré le type du noeud désiré");
         }
         System.out.println("Entrez les coordonnées du noeud:");
-//        x=Lire.d();        
-//        y=Lire.d();
-        x=Math.random() * ( 0 - 16 );
-        y=Math.random() * ( 0 - 16 );
+        x=Lire.d();        
+        y=Lire.d();
         System.out.println("Entrez le vecteur force associé au noeud");
-//        double vx=Lire.d(); 
-//        double vy=Lire.d(); 
-        double vx=Math.random() * ( 0 - 16 );
-        double vy=Math.random() * ( 0 - 16 );
+        double vx=Lire.d(); 
+        double vy=Lire.d(); 
         Vecteur2D F = new Vecteur2D(vx,vy);  
         switch (type) {
             case 2:
                 System.out.println("Donnez l'angle de la normale avec l'axe Ox");
                 double normale=Lire.d();                       
-                n = new NoeudAppuiSimple(x,y,F,id,barresDepart,barresArrivee,normale);
+                n = new NoeudAppuiSimple(x,y,F,id,normale);
                 break;
             case 3:
-                n = new NoeudAppuiDouble(x,y,F,id,barresDepart,barresArrivee);
+                n = new NoeudAppuiDouble(x,y,F,id);
                 break;
             default: 
-                n = new NoeudSimple(x,y,F,id,barresDepart,barresArrivee);
+                n = new NoeudSimple(x,y,F,id);
                 break;
         }
         return n;
         
     }
-public static int nbrInconnues(Noeud n){
-        if (n instanceof NoeudAppuiSimple){
+    public int nbrInconnues(){
+        if (this instanceof NoeudAppuiSimple){
             return 1;
-        }else if (n instanceof NoeudAppuiDouble){
+        }else if (this instanceof NoeudAppuiDouble){
             return 2;
         }else
             return 0;
     }
-public static ArrayList<Barre> barresIncidentes(Noeud n){
-    ArrayList<Barre> barresIncidentes = new ArrayList();
-    barresIncidentes.addAll(n.barresArrivee);
-    barresIncidentes.addAll(n.barresDepart);
-    return barresIncidentes;
-      
-}
+    public ArrayList<Barre> barresIncidentes(){
+        ArrayList<Barre> barresIncidentes = new ArrayList();
+        barresIncidentes.addAll(this.getBarresArrivee());
+        barresIncidentes.addAll(this.getBarresDepart());
+        return barresIncidentes;
+    }
 
 }
