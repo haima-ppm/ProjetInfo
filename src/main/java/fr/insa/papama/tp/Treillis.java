@@ -129,9 +129,9 @@ public class Treillis {
         }
 
         double[][] Equation;
-        Equation = new double[this.noeuds.size() * 2][nombreequation + 1];
-        for (int i = 0; i < nombreequation; i++) {
-            for (int j = 0; j < nombreequation + 1; j++) {
+        Equation = new double[this.noeuds.size() * 2][nombreequation];
+        for (int i = 0; i < this.noeuds.size() * 2; i++) {
+            for (int j = 0; j < nombreequation; j++) {
                 Equation[i][j] = 0;
             }
         }
@@ -159,8 +159,9 @@ public class Treillis {
         }
         System.out.println(" ");
 
-        //Creation de la matrice à résoudre
+        //Creation de la matrice à résoudre A et du vecteur colonne B dans AX=B
         //Remplissage Réactions
+        double[] B=new double[this.noeuds.size() * 2];
         int lig = 0;
         for (int i = 0; i < this.noeuds.size(); i++) {
             Noeud n = this.noeuds.get(i);
@@ -185,7 +186,7 @@ public class Treillis {
                 double angle = b.Angle(n);
                 int col = this.numVar(Inconnues, b);
                 Equation[lig][col] = cos(angle);
-                Equation[lig][Equation.length] = n.getF().getVx();
+                B[lig] = n.getF().getVx();
             }
             lig++;
             //Equation selon y pour les tensions dans les barres
@@ -194,24 +195,53 @@ public class Treillis {
                 double angle = b.Angle(n);
                 int col = this.numVar(Inconnues, b);
                 Equation[lig][col] = sin(angle);
-                Equation[lig][Equation.length] = n.getF().getVy();
+                B[lig] = n.getF().getVy();
 
             }
             lig++;
         }
         System.out.println(" ");
         for (int i = 0; i < nombreequation; i++) {
-            for (int j = 0; j < nombreequation + 1; j++) {
+            for (int j = 0; j < nombreequation; j++) {
                 System.out.print(Equation[i][j] + " | ");
             }
             System.out.println(" ");
+        }
+        for (int j = 0; j < nombreequation; j++) {
+                System.out.print(B[j] + " | ");
         }
         //Resolution de la matrice
         if (this.noeuds.size() * 2 != nombreequation){
               throw new Error("Le système n'est pas soluble");
         }
+//        Determinant d= new Determinant(Equation,Equation.length);
+//        double[][]inverse=transpose(d.inverse(Equation));
+//        double[][] inverse=inverse(Equation);
         double[] v=new double[nombreequation];
- //       v = Treillis.resoudreMatrice(Equation);
+        for(int k=0;k<nombreequation;k++){
+            for(int l=0;l<nombreequation;l++){
+//                System.out.print(inverse[k][l]+"   ");
+            }
+            System.out.print(" ");
+        }
+        for(int k=0;k<nombreequation;k++){
+            for(int l=0;l<nombreequation;l++){
+//                v[k]=v[k]+inverse[k][l]*B[k];
+            }
+        }
+
+        double[][]produit=new double[nombreequation][nombreequation];
+        for(int i=0; i<nombreequation; i++){
+            for(int j=0; j<nombreequation; j++){ 
+            produit[i][j] = 0;    
+                for(int k=0; k<2 ;k++) {   
+//                    produit[i][j] += Equation[i][k] * inverse[k][j];    
+                }
+//            System.out.print(produit[i][j]+" "); 
+            }
+            System.out.println();
+        }  
+        
         for (int in = 0; in < v.length; in++) {
             System.out.println(Inconnues.get(in)+" "+v[in]);
         }
@@ -251,7 +281,19 @@ public class Treillis {
             return i;
         }
     }
-
+    public static double[][] transpose (double[][] m){
+        double[][] transpose=new double[m.length][m[1].length];
+        for(int i=0;i<3;i++){    
+            for(int j=0;j<3;j++){    
+                transpose[i][j]=m[j][i];  
+            }    
+        } 
+        return transpose;
+    }
+//    public static double[][] inverse(double[][] arg0) {
+//   //     Matrix mat = new Matrix(arg0);
+//    return mat.inverse().getArray();
+//    }
 
     
 }
