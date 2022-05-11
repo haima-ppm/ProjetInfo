@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package fr.insa.papama.tp;
-
-import fr.insa.papama.td.syslin.Matrice;
 import java.util.ArrayList;
 
 /**
