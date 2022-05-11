@@ -76,33 +76,6 @@ public class Test {
     ArrayList<Barre> barreQuiCasse = new ArrayList();
     barreQuiCasse=t.barreCasse();
     System.out.println(barreQuiCasse.size());
-
-//      double [][] syslin=new double[4][5];
-//      syslin[0][0]=2;
-//      syslin[1][0]=3;
-//      syslin[2][0]=1;
-//      syslin[3][0]=0;
-//      syslin[0][1]=1;
-//      syslin[1][1]=-1;
-//      syslin[2][1]=4;
-//      syslin[3][1]=2;
-//      syslin[0][2]=-1;
-//      syslin[1][2]=1;
-//      syslin[2][2]=0;
-//      syslin[3][2]=1;
-//      syslin[0][3]=1;
-//      syslin[1][3]=-1;
-//      syslin[2][3]=-6;
-//      syslin[3][3]=-3;
-//      syslin[0][4]=-1;
-//      syslin[1][4]=6;
-//      syslin[2][4]=7;
-//      syslin[3][4]=5;
-//      double res[]= new double[4];
-//      res=Treillis.ResoudreSysLin(syslin);
-//      for (int i=0; i<4; i++) {
-//            System.out.println(res[i]+"     ");
-//        }
         
     }
     

@@ -4,7 +4,6 @@
  */
 package fr.insa.papama.tp;
 
-import fr.insa.papama.td.syslin.Lire;
 
 /**
  *
