@@ -4,8 +4,6 @@
  */
 package fr.insa.papama.tp;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Haimavati

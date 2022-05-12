@@ -45,11 +45,11 @@ public class Treillis {
         Treillis res;
         res = new Treillis();
         NoeudAppuiDouble n1 = new NoeudAppuiDouble(0, 200, new Vecteur2D(0, 0), 1);
-        NoeudSimple n2 = new NoeudSimple(100, 100, new Vecteur2D(0, -1000), 2);
-        NoeudAppuiSimple n3 = new NoeudAppuiSimple(0, 0, new Vecteur2D(0, 0), 3, 0);
-        Barre b1 = new Barre(0, n2, n3, 0, 0, 0);
-        Barre b2 = new Barre(1, n2, n1, 0, 0, 0);
-        Barre b3 = new Barre(2, n3, n1, 0, 0, 0);
+        NoeudSimple n2 = new NoeudSimple(100, 100, new Vecteur2D(0, -1000), 3);
+        NoeudAppuiSimple n3 = new NoeudAppuiSimple(0, 0, new Vecteur2D(0, 0), 2, 0);
+        Barre b1 = new Barre(1, n1, n3, 0, 0, 0);
+        Barre b2 = new Barre(2, n3, n2, 0, 0, 0);
+        Barre b3 = new Barre(3, n1, n2, 0, 0, 0);
         res.ajouteBarre(b1);
         res.ajouteBarre(b2);
         res.ajouteBarre(b3);
@@ -173,7 +173,6 @@ public class Treillis {
                     Equation[lig + 1][num + 1] = 1;
                 } else {
                     int num = this.numVar(Inconnues, n);
-                    //TODO résoudre problème
                     NoeudAppuiSimple ns = (NoeudAppuiSimple) n;
                     double angle=ns.getNormale();
                     Equation[lig][num] = cos(angle);
@@ -214,8 +213,7 @@ public class Treillis {
         if (this.noeuds.size() * 2 != nombreequation){
               throw new Error("Le système n'est pas soluble");
         }
-//        Determinant d= new Determinant(Equation,Equation.length);
-//        double[][]inverse=transpose(d.inverse(Equation));
+
 //        double[][] inverse=inverse(Equation);
         double[] v=new double[nombreequation];
         for(int k=0;k<nombreequation;k++){
