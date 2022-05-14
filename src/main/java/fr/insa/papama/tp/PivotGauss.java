@@ -102,22 +102,21 @@ public class PivotGauss {
 
 
 
-  static double [] resolution(double [][] a, /*Résoud le système d'équations */
-                              double [] b) {
+  static double [] resolution(double [][] a, double [] b) {
     transformation(a,b);
     return extraction(a,b);
   }
   
 
 
-  static double [] resolutionGauss(double [][] a, double [] b) { /*clone la matrice a et le vecteur b afin qu'ont puisse les afficher*/
+  static double [] resolutionGauss(double [][] a, double [] b) {
     return resolution(cloneMatrice(a),cloneVecteur(b));
   }
 
 
   public static double [] resoudreSysteme(double [][] a,double [] b) {
-    double [] v; /*vecteur solution*/
-    System.out.println("Matrice A:");/*affiche la matrice, le vecteur inconnu et le vecteur solution*/
+    double [] v; 
+    System.out.println("Matrice A:");
     affichageMatrice(a);
     System.out.println("Vecteur B:");
     affichageVecteur(b);
