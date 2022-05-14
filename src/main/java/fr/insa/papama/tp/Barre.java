@@ -124,7 +124,7 @@ public class Barre {
     }
     
     
-////    Méthode qui renvoie le noeud opposé au noeud rentré
+// Méthode qui renvoie le noeud opposé au noeud rentré
    public Noeud noeudOppose (Noeud n) {
        Noeud nopp;
        if (n.getId()!=this.getNoeudArrivee().getId() && n.getId()!=this.getNoeudDepart().getId()){
@@ -143,7 +143,6 @@ public class Barre {
     public  double Angle (Noeud n) {
         double y1, y2, x1, x2;
         Noeud nopp=this.noeudOppose(n);
-//        Si le noeud entré est le noeud de départ, n récupère les coordonées du neoud d'arrivée. Et inversement. 
         x1 = n.getPx(); 
         y1 = n.getPy(); 
         x2 = nopp.getPx(); 

@@ -38,7 +38,7 @@ public class Vecteur2D {
         this.vy = vy; 
     }
     
-    //toString() ==> Affichage des coordonées 
+    //Methode toString
     @Override
     public String toString() {
         return "(" + this.vx + ";" + this.vy + ")";

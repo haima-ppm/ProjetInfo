@@ -1,6 +1,4 @@
 package fr.insa.papama.tp;
-
-import fr.insa.papama.td.syslin.*;
 import java.io.*;
 
 /**

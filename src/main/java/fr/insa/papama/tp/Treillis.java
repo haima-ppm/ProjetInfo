@@ -4,6 +4,8 @@
  */
 package fr.insa.papama.tp;
 
+import Jama.Matrix;
+import static java.lang.Math.abs;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import java.util.ArrayList;
@@ -22,18 +24,11 @@ public class Treillis {
     public ArrayList<Barre> getBarres() {
         return barres;
     }
-//On ne va pas modifier toutes les barres d'un coup
-//    public void setBarres(ArrayList<Barre> barres) {
-//        this.barres = barres;
-//    }
 
     public ArrayList<Noeud> getNoeuds() {
         return noeuds;
     }
 
-//    public void setgetNoeuds(ArrayList<Noeud> noeuds) {
-//        this.noeuds = noeuds;
-//    }
     //Constructeur
     public Treillis() {
         this.barres = new ArrayList<>();
@@ -44,18 +39,18 @@ public class Treillis {
     public static Treillis treilliTest() {
         Treillis res;
         res = new Treillis();
-        NoeudAppuiDouble n1 = new NoeudAppuiDouble(0, 200, new Vecteur2D(0, 0), 1);
-        NoeudSimple n2 = new NoeudSimple(100, 100, new Vecteur2D(0, -1000), 3);
-        NoeudAppuiSimple n3 = new NoeudAppuiSimple(0, 0, new Vecteur2D(0, 0), 2, 0);
-        Barre b1 = new Barre(1, n1, n3, 0, 0, 0);
-        Barre b2 = new Barre(2, n3, n2, 0, 0, 0);
-        Barre b3 = new Barre(3, n1, n2, 0, 0, 0);
+        NoeudAppuiDouble n0 = new NoeudAppuiDouble(0, 200, new Vecteur2D(0, 0), 0);
+        NoeudSimple n2 = new NoeudSimple(100, 100, new Vecteur2D(0, -1000), 2);
+        NoeudAppuiSimple n1 = new NoeudAppuiSimple(0, 0, new Vecteur2D(0, 0), 1, 0);
+        Barre b0 = new Barre(0, n0, n2, 0, 0, 0);
+        Barre b1 = new Barre(1, n2, n1, 0, 0, 0);
+        Barre b2 = new Barre(2, n0, n1, 0, 0, 0);
+        res.ajouteBarre(b0);
         res.ajouteBarre(b1);
         res.ajouteBarre(b2);
-        res.ajouteBarre(b3);
+        res.ajouteNoeud(n0);
         res.ajouteNoeud(n1);
         res.ajouteNoeud(n2);
-        res.ajouteNoeud(n3);
         return res;
     }
 
@@ -121,7 +116,6 @@ public class Treillis {
 
     public  ArrayList<Barre> barreCasse() {
         //Création de la matrice des equations
-        // dimention inconnues horizontal nbr var et bertical nbrvar+1
         int nombreequation;
         nombreequation = this.barres.size();
         for (int i = 0; i < this.noeuds.size(); i++) {
@@ -200,55 +194,34 @@ public class Treillis {
             lig++;
         }
         System.out.println(" ");
-        for (int i = 0; i < nombreequation; i++) {
-            for (int j = 0; j < nombreequation; j++) {
-                System.out.print(Equation[i][j] + " | ");
-            }
-            System.out.println(" ");
-        }
-        for (int j = 0; j < nombreequation; j++) {
-                System.out.print(B[j] + " | ");
-        }
+        
+        
         //Resolution de la matrice
         if (this.noeuds.size() * 2 != nombreequation){
-              throw new Error("Le système n'est pas soluble");
+              throw new Error("Le système n'est pas soluble (la matrice n'est pas carrée)");
         }
+        Matrix m=new Matrix(this.noeuds.size() * 2 , nombreequation);
+        for (int i = 0; i < this.noeuds.size() * 2; i++) {
+            for (int j = 0; j < nombreequation; j++) {
+                m.set(i, j, Equation[i][j]);
+            }
+        }
+        if(m.det()==0){
+             throw new Error("Le système n'est pas soluble (le determinant est nul");
+        }
+        double[] v=PivotGauss.resoudreSysteme(Equation, B);
 
-//        double[][] inverse=inverse(Equation);
-        double[] v=new double[nombreequation];
-        for(int k=0;k<nombreequation;k++){
-            for(int l=0;l<nombreequation;l++){
-//                System.out.print(inverse[k][l]+"   ");
-            }
-            System.out.print(" ");
-        }
-        for(int k=0;k<nombreequation;k++){
-            for(int l=0;l<nombreequation;l++){
-//                v[k]=v[k]+inverse[k][l]*B[k];
-            }
-        }
-
-        double[][]produit=new double[nombreequation][nombreequation];
-        for(int i=0; i<nombreequation; i++){
-            for(int j=0; j<nombreequation; j++){ 
-            produit[i][j] = 0;    
-                for(int k=0; k<2 ;k++) {   
-//                    produit[i][j] += Equation[i][k] * inverse[k][j];    
-                }
-//            System.out.print(produit[i][j]+" "); 
-            }
-            System.out.println();
-        }  
-        
-        for (int in = 0; in < v.length; in++) {
-            System.out.println(Inconnues.get(in)+" "+v[in]);
-        }
-        //TODO gérer si c'est une compression ou une traction
         //Trouver les barres qui risquent de casser
         ArrayList<Barre> fragile = new ArrayList();
         for (int k = 0; k < this.barres.size(); k++) {
-            if (v[k] > this.barres.get(k).getCompressionMax()) {
-                fragile.add(this.barres.get(k));
+            if(v[k]>=0){
+                if (v[k] > this.barres.get(k).getCompressionMax()) {
+                    fragile.add(this.barres.get(k));
+                }
+            }else{
+                if (abs(v[k]) > this.barres.get(k).getTractionMax()) {
+                    fragile.add(this.barres.get(k));
+                }
             }
         }
         return fragile;
@@ -279,20 +252,5 @@ public class Treillis {
             return i;
         }
     }
-    public static double[][] transpose (double[][] m){
-        double[][] transpose=new double[m.length][m[1].length];
-        for(int i=0;i<3;i++){    
-            for(int j=0;j<3;j++){    
-                transpose[i][j]=m[j][i];  
-            }    
-        } 
-        return transpose;
-    }
-//    public static double[][] inverse(double[][] arg0) {
-//   //     Matrix mat = new Matrix(arg0);
-//    return mat.inverse().getArray();
-//    }
-
-    
 }
 
